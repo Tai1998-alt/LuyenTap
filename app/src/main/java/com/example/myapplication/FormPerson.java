@@ -84,6 +84,7 @@ public class FormPerson extends AppCompatActivity {
     }
     private void addPerson()
     {
-
+        //abc
+        btnUpdate.setText("ADD");
     }
 }
