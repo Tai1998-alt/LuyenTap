@@ -29,6 +29,7 @@ public class FormPerson extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_person);
         getSupportActionBar().hide();
+
         editAge = findViewById(R.id.editAge);
         editName = findViewById(R.id.editName);
         editClass = findViewById(R.id.editClass);
@@ -38,9 +39,9 @@ public class FormPerson extends AppCompatActivity {
         if(bundle!=null)
         {
             person = (Person) bundle.getSerializable("person");
-            editName.setText(person.getName().toString());
+            editName.setText(person.getName());
             editAge.setText(String.valueOf(person.getAge()));
-            editClass.setText(person.getLop().toString());
+            editClass.setText(person.getLop());
         }
         if( person.getId()==0)
         {
@@ -52,10 +53,11 @@ public class FormPerson extends AppCompatActivity {
             public void onClick(View v) {
                 if(person.getId()==0)
                 {
-                    addPerson();
-                } else {updatePerson();}
+                   addPerson();
+                } else updatePerson();
             }
         });
+
     }
 
     private void updatePerson()
@@ -63,7 +65,7 @@ public class FormPerson extends AppCompatActivity {
         StringRequest stringRequest =new StringRequest(Request.Method.PUT, url+"/"+person.getId(), response ->
         {
                 startActivity(new Intent(FormPerson.this, MainActivity.class));
-
+                finish();
         }, error ->
         {
                 error.printStackTrace();
@@ -71,7 +73,7 @@ public class FormPerson extends AppCompatActivity {
         {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> hashMap = new HashMap<>();
+                Map<String,String> hashMap = new HashMap<>();
                 hashMap.put("name",editName.getText().toString().trim());
                 hashMap.put("age", editAge.getText().toString().trim());
                 hashMap.put("lop",editClass.getText().toString().trim());
@@ -84,9 +86,27 @@ public class FormPerson extends AppCompatActivity {
     }
     private void addPerson()
     {
-        //abc
-        btnUpdate.setText("ADD");
-        //bdna
-        btnUpdate.setText("ADD");
+        StringRequest stringRequest =new StringRequest(Request.Method.POST, url, response ->
+        {
+            startActivity(new Intent(FormPerson.this, MainActivity.class));
+            finish();
+        }, error ->
+        {
+            error.printStackTrace();
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> hashMap = new HashMap<>();
+                hashMap.put("name",editName.getText().toString().trim());
+                hashMap.put("age", editAge.getText().toString().trim());
+                hashMap.put("lop",editClass.getText().toString().trim());
+                return hashMap;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0,1,1));
+        RequestQueue requestQueue = Volley.newRequestQueue(FormPerson.this);
+        requestQueue.add(stringRequest);
     }
+
 }

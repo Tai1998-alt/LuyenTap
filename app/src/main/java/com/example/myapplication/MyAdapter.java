@@ -30,7 +30,7 @@ import java.io.Serializable;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
 
-    private List<Person> list;
+    private List<Person> persons;
     private Context context;
     String url ="https://60b4f2bbfe923b0017c833fa.mockapi.io/api/persons";
     public MyAdapter(Context context) {
@@ -47,7 +47,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-        Person person = list.get(position);
+        Person person = persons.get(position);
         holder.txtName.setText(person.getName());
         holder.txtAge.setText(String.valueOf(person.getAge()));
         holder.txtClass.setText(person.getLop());
@@ -60,6 +60,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
                         {
                             Toast.makeText(context,"Thanh Cong",Toast.LENGTH_SHORT).show();
                             update();
+
                         },
                         error ->
                         {
@@ -75,17 +76,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("person", (Serializable) person);
+                bundle.putSerializable("person", person);
                 Intent intent =new Intent(context,FormPerson.class);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }
         });
+
+
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return persons.size();
     }
 
     public class MyHolder extends RecyclerView.ViewHolder{
@@ -101,7 +104,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
         }
     }
     private void update(){
-        list = new ArrayList<>();
+        persons = new ArrayList<>();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, response ->
         {
             try
@@ -114,7 +117,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
                     int age = jsonObject.getInt("age");
                     String lop = jsonObject.getString("lop");
                     Person person = new Person(id,name,age,lop);
-                    list.add(person);
+                    persons.add(person);
                 }
                 notifyDataSetChanged();
             }
