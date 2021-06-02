@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -55,20 +57,28 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url+"/"+person.getId(),
-                        response ->
-                        {
-                            Toast.makeText(context,"Thanh Cong",Toast.LENGTH_SHORT).show();
-                            update();
+               new AlertDialog.Builder(context)
+                       .setTitle("Confirm")
+                       .setMessage("Are you want delete")
+                       .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                               StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url+"/"+person.getId(),
+                                       response ->
+                                       {
+                                           Toast.makeText(context,"Thanh Cong",Toast.LENGTH_SHORT).show();
+                                           update();
 
-                        },
-                        error ->
-                        {
-                            error.printStackTrace();
-                        });
-                stringRequest.setRetryPolicy(new DefaultRetryPolicy(0,1,1));
-                RequestQueue requestQueue = Volley.newRequestQueue(context);
-                requestQueue.add(stringRequest);
+                                       },
+                                       error ->
+                                       {
+                                           error.printStackTrace();
+                                       });
+                               stringRequest.setRetryPolicy(new DefaultRetryPolicy(0,1,1));
+                               RequestQueue requestQueue = Volley.newRequestQueue(context);
+                               requestQueue.add(stringRequest);
+                           }
+                       }).setNegativeButton("NO",null).show();
             }
         });
 

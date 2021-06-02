@@ -39,6 +39,24 @@ public class MainLogin extends AppCompatActivity {
     {
         String email = String.valueOf(editEmail.getText());
         String password = String.valueOf(editPassWord.getText());
+        if(email.isEmpty())
+        {
+            editEmail.setError("Not Empty");
+            editEmail.requestFocus();
+            return;
+        }
+        if(password.isEmpty())
+        {
+            editPassWord.setError("Not Empty");
+            editPassWord.requestFocus();
+            return;
+        }
+        if(password.length()<6)
+        {
+            editPassWord.setError("Need than character six");
+            editPassWord.requestFocus();
+            return;
+        }
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -49,8 +67,8 @@ public class MainLogin extends AppCompatActivity {
                         }
                         else {
                             new AlertDialog.Builder(MainLogin.this)
-                                    .setTitle("Thong Bao")
-                                    .setMessage("Khong Thanh Cong")
+                                    .setTitle("Confirm")
+                                    .setMessage("Failed")
                                     .setPositiveButton("YES",null).show();
                             }
                     }
