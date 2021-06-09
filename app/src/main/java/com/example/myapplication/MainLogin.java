@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,6 +20,7 @@ public class MainLogin extends AppCompatActivity {
 
     EditText editEmail, editPassWord;
     Button btnSignIn;
+    TextView txtExit;
     FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +29,18 @@ public class MainLogin extends AppCompatActivity {
         editEmail = findViewById(R.id.editEmail);
         editPassWord = findViewById(R.id.editPassWord);
         btnSignIn = findViewById(R.id.btnSignIn);
+        txtExit = findViewById(R.id.txtExit);
         auth = FirebaseAuth.getInstance();
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SignIn();
+            }
+        });
+        txtExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

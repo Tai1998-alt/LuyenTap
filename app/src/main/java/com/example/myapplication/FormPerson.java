@@ -22,7 +22,7 @@ public class FormPerson extends AppCompatActivity {
 
     Person person;
     EditText editName, editAge, editClass;
-    Button btnUpdate;
+    Button btnUpdate, btnExit;
     String url ="https://60b4f2bbfe923b0017c833fa.mockapi.io/api/persons";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class FormPerson extends AppCompatActivity {
         editName = findViewById(R.id.editName);
         editClass = findViewById(R.id.editClass);
         btnUpdate = findViewById(R.id.btnUpdate);
-
+        btnExit = findViewById(R.id.btnExit);
         Bundle bundle = getIntent().getExtras();
         if(bundle!=null)
         {
@@ -58,6 +58,12 @@ public class FormPerson extends AppCompatActivity {
             }
         });
 
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void updatePerson()

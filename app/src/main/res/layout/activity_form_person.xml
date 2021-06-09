@@ -4,8 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5BA156"
+    android:background="#288F1C"
     tools:context=".FormPerson">
+
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="185dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="76dp"
+        android:text="EXIT"
+        android:textSize="18sp"
+        app:backgroundTint="#511616"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editName"
@@ -13,8 +25,10 @@
         android:layout_height="55dp"
         android:layout_marginBottom="56dp"
         android:ems="10"
+        android:hint="Name"
+        android:textColor="@color/black"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text=""
         app:layout_constraintBottom_toTopOf="@+id/editAge"
         app:layout_constraintEnd_toEndOf="@+id/editAge"
         app:layout_constraintHorizontal_bias="0.0"
@@ -28,8 +42,10 @@
         android:layout_height="57dp"
         android:layout_marginBottom="56dp"
         android:ems="10"
+        android:hint="Age"
+        android:textColor="@color/black"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text=""
         app:layout_constraintBottom_toTopOf="@+id/editClass"
         app:layout_constraintEnd_toEndOf="@+id/editClass"
         app:layout_constraintHorizontal_bias="0.2"
@@ -39,21 +55,25 @@
         android:id="@+id/editClass"
         android:layout_width="281dp"
         android:layout_height="49dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="116dp"
         android:ems="10"
+        android:hint="Class"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text=""
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/btnUpdate"
-        tools:layout_editor_absoluteX="72dp" />
+        app:layout_constraintEnd_toEndOf="@+id/btnUpdate"
+        app:layout_constraintStart_toStartOf="@+id/btnUpdate" />
 
     <Button
         android:id="@+id/btnUpdate"
         android:layout_width="185dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="188dp"
+        android:layout_marginBottom="40dp"
         android:text="UPDATE"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:backgroundTint="#511616"
+        app:layout_constraintBottom_toTopOf="@+id/btnExit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

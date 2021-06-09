@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         recyclerView =findViewById(R.id.recyclerView);
         btnAdd = findViewById(R.id.btnAdd);
-        btnFinish = findViewById(R.id.btnEdit);
+        btnFinish = findViewById(R.id.btnFinish);
 
         myAdapter = new MyAdapter(MainActivity.this);
         recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 1));
@@ -42,7 +42,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        btnFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MainLogin.class));
+                finish();
+            }
+        });
     }
 
 
